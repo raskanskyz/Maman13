@@ -1,4 +1,4 @@
 
 public class RGBImage {
-//testing git commit's and push
+//testing git commit's and push k
 }//class
