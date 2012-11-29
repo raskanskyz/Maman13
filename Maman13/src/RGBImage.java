@@ -3,7 +3,7 @@ public class RGBImage {
 	private RGBColor[][] pixels;
 	private int height;
 	private int width;
-
+ 
 	// ------------------------------------------------------------------------------
 	/* OKAY */public RGBImage(int rows, int cols) {
 		setHeight(rows);
