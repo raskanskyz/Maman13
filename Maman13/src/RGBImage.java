@@ -47,7 +47,7 @@ public class RGBImage {
 		this.width = width;
 	}// setWidth
 
-	public RGBColor getPixel(int row, int col) {
+	/* OKAY */public RGBColor getPixel(int row, int col) {
 		if (row > getHeight() || col > getWidth()) {
 			return new RGBColor();
 		} else {
@@ -68,7 +68,23 @@ public class RGBImage {
 
 	}// setPixel
 
-	public boolean equals(RGBImage other) {
+/* OKAY */	public boolean equals(RGBImage other) {
+
+		if (!(getHeight() == other.getHeight())
+				|| !(getWidth() == other.getWidth())) {
+			return false;
+		}// if
+		for (int i = 0; i < getHeight(); i++) {
+
+			for (int j = 0; j < getWidth(); j++) {
+
+				if (!pixels[i][j].equals(other.getRGBImage()[i][j])) {
+					return false;
+				}// inner if
+
+			}// inner loop
+
+		}// outer loop
 		return true;
 	}// equals
 
