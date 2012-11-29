@@ -31,7 +31,7 @@ public class RGBImage {
 		// -----------------------------------------------------------------------------
 
 	/******************** METHODS BELOW *******************************/
-	public int getHeight() {
+	/* OKAY */public int getHeight() {
 		return height;
 	}// getHeight
 
@@ -39,7 +39,7 @@ public class RGBImage {
 		this.height = height;
 	}// setHeight
 
-	public int getWidth() {
+	/* OKAY */public int getWidth() {
 		return width;
 	}// getWidth
 
@@ -56,14 +56,12 @@ public class RGBImage {
 
 	}// getPixel
 
-	public void setPixel(int row, int col, RGBColor pixel) {
+	/* OKAY */public void setPixel(int row, int col, RGBColor pixel) {
 		if (row > getHeight() || col > getWidth()) {
 			return;
 		}// if
 		else {
-			pixels[row][col] = pixel;
-			// should i do this instead--->pixels[row][col]= new
-			// RGBColor(pixel);
+			pixels[row][col] = new RGBColor(pixel);
 		}// else
 
 	}// setPixel
@@ -88,12 +86,15 @@ public class RGBImage {
 		return true;
 	}// equals
 
-	public void setRGBImage(RGBColor[][] pixels) {
+	/* Check Aliasing */private void setRGBImage(RGBColor[][] pixels) {
 		this.pixels = pixels;
 	}// setRGBImage
 
-	public RGBColor[][] getRGBImage() {
+	/* Check Aliasing */public RGBColor[][] getRGBImage() {
 		return pixels;
 	}// getRGBImage
 
+	public void flipHorizontal() {
+
+	}// flipHorizontal
 }// class
