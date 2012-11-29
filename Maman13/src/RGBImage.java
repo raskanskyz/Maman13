@@ -98,6 +98,21 @@ public class RGBImage {
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
 
 		int heightCounter = getHeight();
+
+		for (int i = 0; i < flippedImage.length; i++) {
+			for (int j = 0; j < flippedImage[0].length; j++) {
+
+				flippedImage[i][j] = pixels[heightCounter][j];
+			}// inner loop
+			heightCounter -= 1;
+		}// outer loop
+
+	}// flipHorizontal
+
+	public void flipVertical() {
+		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
+
+		int heightCounter = getHeight();
 		int widthCounter = getWidth();
 
 		for (int i = 0; i < flippedImage.length; i++) {
@@ -108,6 +123,5 @@ public class RGBImage {
 			heightCounter -= 1;
 		}// outer loop
 
-	}// flipHorizontal
-
+	}// flipVertical
 }// class
