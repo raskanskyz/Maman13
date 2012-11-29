@@ -5,7 +5,9 @@ public class RGBImage {
 	private int width;
 
 	// ------------------------------------------------------------------------------
-	public RGBImage(int rows, int cols) {
+	/* OKAY */public RGBImage(int rows, int cols) {
+		setHeight(rows);
+		setWidth(cols);
 		pixels = new RGBColor[rows][cols];
 
 		for (int i = 0; i < rows; i++) {
@@ -15,13 +17,16 @@ public class RGBImage {
 		}// outer loop
 	}// CTOR1
 
-	public RGBImage(RGBColor[][] pixels) { // ---C-O-N-S-T-R-U-C-T-O-R-S----
-		setRGBImage(pixels);
+	/* OKAY */public RGBImage(RGBColor[][] pixels) {
+		setHeight(pixels.length);
+		setWidth(pixels[0].length);
 	}// CTOR2
 
-	public RGBImage(RGBImage other) {
+	/* OKAY */public RGBImage(RGBImage other) {
 		RGBImage image = new RGBImage(other.getRGBImage());
 		setRGBImage(image.getRGBImage());
+		setHeight(image.getHeight());
+		setWidth(image.getWidth());
 	}// CTOR3
 		// -----------------------------------------------------------------------------
 
@@ -30,9 +35,17 @@ public class RGBImage {
 		return height;
 	}// getHeight
 
+	public void setHeight(int height) {
+		this.height = height;
+	}// setHeight
+
 	public int getWidth() {
 		return width;
 	}// getWidth
+
+	public void setWidth(int width) {
+		this.width = width;
+	}// setWidth
 
 	public RGBColor getPixel(int row, int col) {
 		if (row > getHeight() || col > getWidth()) {
