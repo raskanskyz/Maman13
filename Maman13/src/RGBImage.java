@@ -29,7 +29,7 @@ public class RGBImage {
 		setWidth(image.getWidth());
 	}// CTOR3
 		// -----------------------------------------------------------------------------
-
+ 
 	/******************** METHODS BELOW *******************************/
 	/* OKAY */public int getHeight() {
 		return height;
