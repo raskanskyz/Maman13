@@ -68,7 +68,7 @@ public class RGBImage {
 
 	}// setPixel
 
-/* OKAY */	public boolean equals(RGBImage other) {
+	/* OKAY */public boolean equals(RGBImage other) {
 
 		if (!(getHeight() == other.getHeight())
 				|| !(getWidth() == other.getWidth())) {
