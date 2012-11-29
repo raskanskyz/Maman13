@@ -3,7 +3,7 @@ public class RGBImage {
 	private RGBColor[][] pixels;
 	private int height;
 	private int width;
- 
+
 	// ------------------------------------------------------------------------------
 	/* OKAY */public RGBImage(int rows, int cols) {
 		setHeight(rows);
@@ -29,7 +29,7 @@ public class RGBImage {
 		setWidth(image.getWidth());
 	}// CTOR3
 		// -----------------------------------------------------------------------------
- 
+
 	/******************** METHODS BELOW *******************************/
 	/* OKAY */public int getHeight() {
 		return height;
@@ -94,7 +94,20 @@ public class RGBImage {
 		return pixels;
 	}// getRGBImage
 
-	public void flipHorizontal() {
+	/* OKAY */public void flipHorizontal() {
+		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
+
+		int heightCounter = getHeight();
+		int widthCounter = getWidth();
+
+		for (int i = 0; i < flippedImage.length; i++) {
+			for (int j = 0; j < flippedImage[0].length; j++) {
+				flippedImage[i][j] = pixels[heightCounter][widthCounter];
+				widthCounter -= 1;
+			}// inner loop
+			heightCounter -= 1;
+		}// outer loop
 
 	}// flipHorizontal
+
 }// class
