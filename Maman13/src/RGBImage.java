@@ -104,7 +104,7 @@ public class RGBImage {
 
 				flippedImage[i][j] = beforeFlip[heightCounter][j];
 
-			}
+			} 
 			heightCounter--;
 		}
 
