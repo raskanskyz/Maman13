@@ -95,35 +95,44 @@ public class RGBImage {
 	}// getRGBImage
 
 	/* OKAY */public void flipHorizontal() {
+
 		RGBColor[][] beforeFlip = getPixelArray();
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
 		int heightCounter = getHeight() - 1;
+
 		for (int i = 0; i < flippedImage.length; i++) {
 
 			for (int j = 0; j < flippedImage[0].length; j++) {
 
 				flippedImage[i][j] = beforeFlip[heightCounter][j];
 
-			} 
+			}// inner loop
 			heightCounter--;
-		}
+		}// outer loop
 
 		setPixelArray(flippedImage);
 	}// flipHorizontal
 
 	/* OKAY */public void flipVertical() {
-		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
 
-		int widthCounter = getWidth();
+		RGBColor[][] beforeFlip = getPixelArray();
+		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
+		int widthCounter = getWidth() - 1;
 
 		for (int i = 0; i < flippedImage.length; i++) {
+
 			for (int j = 0; j < flippedImage[0].length; j++) {
 
-				flippedImage[i][j] = pixels[i][widthCounter];
+				flippedImage[i][j] = beforeFlip[i][widthCounter];
+				if (widthCounter > 0) {
+					widthCounter--;
+				}
+
 			}// inner loop
-			widthCounter -= 1;
+			widthCounter = getWidth() - 1;
 		}// outer loop
 
+		setPixelArray(flippedImage);
 	}// flipVertical
 
 	/* OKAY */public void invertColors() {
