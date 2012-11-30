@@ -109,19 +109,31 @@ public class RGBImage {
 
 	}// flipHorizontal
 
-	public void flipVertical() {
+	/* OKAY */public void flipVertical() {
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
 
-		int heightCounter = getHeight();
 		int widthCounter = getWidth();
 
 		for (int i = 0; i < flippedImage.length; i++) {
 			for (int j = 0; j < flippedImage[0].length; j++) {
-				flippedImage[i][j] = pixels[heightCounter][widthCounter];
-				widthCounter -= 1;
+
+				flippedImage[i][j] = pixels[i][widthCounter];
 			}// inner loop
-			heightCounter -= 1;
+			widthCounter -= 1;
 		}// outer loop
 
 	}// flipVertical
+
+	/* OKAY */public void invertColors() {
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[0].length; j++) {
+				pixels[i][j].invert();
+			}// inner loop
+		}// outer loop
+	}
+
+	public void rotateClockwise() {
+
+	}// rotateClockwise
+
 }// class
