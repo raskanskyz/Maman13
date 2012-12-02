@@ -98,16 +98,15 @@ public class RGBImage {
 
 		RGBColor[][] beforeFlip = getPixelArray();
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
-		int heightCounter = getHeight() - 1;
 
 		for (int i = 0; i < flippedImage.length; i++) {
 
 			for (int j = 0; j < flippedImage[0].length; j++) {
 
-				flippedImage[i][j] = beforeFlip[heightCounter][j];
+				flippedImage[i][j] = beforeFlip[getHeight() - i - 1][j];
 
 			}// inner loop
-			heightCounter--;
+
 		}// outer loop
 
 		setPixelArray(flippedImage);
