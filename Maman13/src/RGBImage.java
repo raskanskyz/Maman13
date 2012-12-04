@@ -1,28 +1,70 @@
+/**
+ * @author raskanskyz
+ * 
+ */
 public class RGBImage {
 
 	private RGBColor[][] pixels;
 
-	/* OKAY */public RGBImage(int rows, int cols) {
+	/**
+	 * This is the default constructor. It creates a black image with a height =
+	 * 'rows' and width = 'cols'
+	 * 
+	 * @param rows
+	 *            Sets the number of rows in the 2D array.
+	 * @param cols
+	 *            Sets the number of columns in the 2D array.
+	 */
+	public RGBImage(int rows, int cols) {
 		pixels = setArrayBlack(new RGBColor[rows][cols]);
 	}// CTOR1
 
-	/* OKAY */public RGBImage(RGBColor[][] pixels) {
+	/**
+	 * This constructor creates a new RGBImage and initializes it with 'pixels'
+	 * array.
+	 * 
+	 * @param pixels
+	 * 
+	 */
+	public RGBImage(RGBColor[][] pixels) {
 		setPixelArray(pixels);
 	}// CTOR2
 
+	/**
+	 * This constructor creates a new RGBImage identical to 'other'.
+	 * 
+	 * @param other
+	 * 
+	 */
 	public RGBImage(RGBImage other) {
 		this.pixels = copyArray(other.toRGBColorArray());
 	}// CTOR3
 
-	/******************** METHODS BELOW *******************************/
+	/**
+	 * 
+	 * @return The height of this array.
+	 * 
+	 */
 	public int getHeight() {
 		return pixels.length;
 	}// getHeight
 
+	/**
+	 * @return The width of this array.
+	 */
 	public int getWidth() {
 		return pixels[0].length;
 	}// getWidth
 
+	/**
+	 * This method returns the pixel located at [row][col].
+	 * 
+	 * @param row
+	 *            The row in which the pixel is located at.
+	 * @param col
+	 *            The column in which the pixel is located at.
+	 * @return The pixel located at [height][width].
+	 */
 	public RGBColor getPixel(int row, int col) {
 		if (row > getHeight() || col > getWidth()) {
 			return new RGBColor();
@@ -32,6 +74,16 @@ public class RGBImage {
 
 	}// getPixel
 
+	/**
+	 * This method sets 'pixel' in the location [row][column].
+	 * 
+	 * @param row
+	 *            The row in which 'pixel' is to be set at.
+	 * @param col
+	 *            The column in which 'pixel' is to be set at.
+	 * @param pixel
+	 *            The pixel to set at [row][column].
+	 */
 	public void setPixel(int row, int col, RGBColor pixel) {
 		if (row > getHeight() || col > getWidth()) {
 			return;
@@ -42,6 +94,13 @@ public class RGBImage {
 
 	}// setPixel
 
+	/**
+	 * This method check whether two RGBImages are identical.
+	 * 
+	 * @param other
+	 *            The RGBImage to be compared with.
+	 * @return True if images are the same and False if they are not
+	 */
 	public boolean equals(RGBImage other) {
 
 		if (!(getHeight() == other.getHeight())
@@ -62,6 +121,9 @@ public class RGBImage {
 		return true;
 	}// equals
 
+	/**
+	 * Flips the image on a horizontal axis.
+	 */
 	public void flipHorizontal() {
 
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
@@ -75,6 +137,9 @@ public class RGBImage {
 		setPixelArray(flippedImage);
 	}// flipHorizontal
 
+	/**
+	 * Flips the image on it's vertical axis.
+	 */
 	public void flipVertical() {
 
 		RGBColor[][] flippedImage = copyArray(toRGBColorArray());
@@ -90,6 +155,9 @@ public class RGBImage {
 		setPixelArray(flippedImage);
 	}// flipVertical
 
+	/**
+	 * Inverts each pixel in the Array.
+	 */
 	public void invertColors() {
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = 0; j < pixels[0].length; j++) {
@@ -98,10 +166,18 @@ public class RGBImage {
 		}// outer loop
 	}
 
+	/**
+	 * This method copies an array.
+	 * 
+	 * @return A copy of this RGBImage array.
+	 */
 	public RGBColor[][] toRGBColorArray() {
-		return copyArray(copyArray(pixels));
+		return copyArray(pixels);
 	}// toRGBColorArray
 
+	/**
+	 * Rotates the image 90 degrees to the right.
+	 */
 	public void rotateClockwise() {
 
 		RGBColor[][] rotatedArray = new RGBColor[getWidth()][getHeight()];
@@ -118,12 +194,22 @@ public class RGBImage {
 		setPixelArray(rotatedArray);
 	}// rotateClockwise
 
+	/**
+	 * Rotates the image 90 degrees to the left.
+	 */
 	public void rotateCounterClockwise() {
 		rotateClockwise();
 		rotateClockwise();
 		rotateClockwise();
 	}// rotateCounterClockwise
 
+	/**
+	 * This method shifts the 2D array to the right if offset > 0 and to the
+	 * left if offset < 0.
+	 * 
+	 * @param offset
+	 *            The number of columns to shift the image.
+	 */
 	public void shiftCol(int offset) {
 		if (offset == getWidth() || offset == -getWidth()) {
 			setPixelArray(setArrayBlack(pixels));
@@ -168,6 +254,13 @@ public class RGBImage {
 
 	}// shiftCol
 
+	/**
+	 * This method shifts the 2D array upwards if offset < 0 and downwards if
+	 * offset > 0.
+	 * 
+	 * @param offset
+	 *            The number of rows to shift the image.
+	 */
 	public void shiftRow(int offset) {
 		if (offset == getWidth() || offset == -getWidth()) {
 			setPixelArray(setArrayBlack(pixels));
@@ -184,6 +277,10 @@ public class RGBImage {
 		}// else
 	}// shiftRow
 
+	/**
+	 * 
+	 * @return A grayscale representation of the image.
+	 */
 	public double[][] toGrayscaleArray() {
 		double[][] grayScaledArray = new double[getHeight()][getWidth()];
 		for (int i = 0; i < pixels.length; i++) {
@@ -195,6 +292,9 @@ public class RGBImage {
 		return grayScaledArray;
 	}// toGrayscaleArray
 
+	/**
+	 * Returns the 2D array as A String for visualization.
+	 */
 	public String toString() {
 		String output = "";
 		for (int i = 0; i < pixels.length; i++) {
@@ -211,6 +311,13 @@ public class RGBImage {
 		return output;
 	}// toString
 
+	/**
+	 * This method copies an a given array.
+	 * 
+	 * @param pixels
+	 *            The array to copy.
+	 * @return A copy of 'pixels'.
+	 */
 	private RGBColor[][] copyArray(RGBColor[][] pixels) {
 		RGBColor[][] copiedArray = new RGBColor[pixels.length][pixels[0].length];
 		for (int i = 0; i < pixels.length; i++) {
@@ -223,10 +330,24 @@ public class RGBImage {
 		return copiedArray;
 	}// copyArray
 
+	/**
+	 * This method sets 'pixelArray' as this RGBImage array.
+	 * 
+	 * @param pixelArray
+	 *            the array to be set to this RGBImage.
+	 */
 	private void setPixelArray(RGBColor[][] pixelArray) {
 		this.pixels = copyArray(pixelArray);
 	}// getRGBImage
 
+	/**
+	 * This method converts a give Array into a black Array with the same
+	 * dimensions as 'sourceArray'.
+	 * 
+	 * @param sourceArray
+	 *            The array to be set to black.
+	 * @return A black image.
+	 */
 	private RGBColor[][] setArrayBlack(RGBColor[][] sourceArray) {
 		RGBColor[][] blackArray = new RGBColor[sourceArray.length][sourceArray[0].length];
 		for (int i = 0; i < blackArray.length; i++) {
