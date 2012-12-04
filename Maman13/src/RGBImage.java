@@ -131,17 +131,13 @@ public class RGBImage {
 	}// rotateCounterClockwise
 
 	public void shiftCol(int offset) {
-
 		if (offset == getHeight() || offset == -getHeight()) {
-
 			setPixelArray(setArrayBlack(pixels));
 		}// if equal to columns
-
 		else if (offset > getHeight() - 1 || offset < -getHeight() + 1
 				|| offset == 0) {
 			return;
 		}// if out of bounds
-			// **********************************************************************************************************
 		else {
 			RGBColor[][] blackSheet = setArrayBlack(pixels);
 			if (offset > 0) {
@@ -151,23 +147,23 @@ public class RGBImage {
 							blackSheet[i][j] = toRGBColorArray()[i][j - offset];
 						}// if
 					}// inner loop
-
 				}// outer loop
 				setPixelArray(blackSheet);
 			}// if > 0
-
 			else if (offset < 0) {
+				flipVertical();
+				offset = -offset;
 				for (int i = 0; i < blackSheet.length; i++) {
 					for (int j = 0; j < blackSheet[0].length; j++) {
-						if (!(-j < offset)) {
+						if (!(j < offset)) {
 							blackSheet[i][j] = toRGBColorArray()[i][j - offset];
 						}// if
 					}// inner loop
-
 				}// outer loop
+				setPixelArray(blackSheet);
+				flipVertical();
 			}// else if
 		}// else
-
 	}// shiftCol
 
 	public void shiftRow(int offset) {
