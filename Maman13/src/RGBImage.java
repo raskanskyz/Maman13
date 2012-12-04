@@ -167,7 +167,21 @@ public class RGBImage {
 	}// shiftCol
 
 	public void shiftRow(int offset) {
-
+		if (offset == getWidth() || offset == -getWidth()) {
+			setPixelArray(setArrayBlack(pixels));
+		}// if
+		else {
+			if (offset > 0) {
+				rotateClockwise();
+				shiftCol(offset);
+				rotateCounterClockwise();
+			}// if offset positive
+			else if (offset < 0) {
+				rotateClockwise();
+				shiftCol(offset);
+				rotateClockwise();
+			}// of offset negative
+		}// else
 	}// shiftRow
 
 	public double[][] toGrayscaleArray() {
