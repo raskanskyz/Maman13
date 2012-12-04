@@ -2,41 +2,37 @@ public class RGBImage {
 
 	private RGBColor[][] pixels;
 
-	// ------------------------------------------------------------------------------
 	/* OKAY */public RGBImage(int rows, int cols) {
-		pixels = new RGBColor[rows][cols];
-		setArrayBlack(pixels);
-
+		pixels = setArrayBlack(new RGBColor[rows][cols]);
 	}// CTOR1
 
 	/* OKAY */public RGBImage(RGBColor[][] pixels) {
 		setPixelArray(pixels);
 	}// CTOR2
 
-	/* OKAY */public RGBImage(RGBImage other) {
+	public RGBImage(RGBImage other) {
 		this.pixels = copyArray(other.toRGBColorArray());
 	}// CTOR3
-		// -----------------------------------------------------------------------------
 
 	/******************** METHODS BELOW *******************************/
-	/* OKAY */public int getHeight() {
+	public int getHeight() {
 		return pixels.length;
 	}// getHeight
 
-	/* OKAY */public int getWidth() {
+	public int getWidth() {
 		return pixels[0].length;
 	}// getWidth
 
-	/* OKAY */public RGBColor getPixel(int row, int col) {
+	public RGBColor getPixel(int row, int col) {
 		if (row > getHeight() || col > getWidth()) {
 			return new RGBColor();
 		} else {
-			return pixels[row][col];
+			return new RGBColor(pixels[row][col]);
 		}
 
 	}// getPixel
 
-	/* OKAY */public void setPixel(int row, int col, RGBColor pixel) {
+	public void setPixel(int row, int col, RGBColor pixel) {
 		if (row > getHeight() || col > getWidth()) {
 			return;
 		}// if
@@ -46,7 +42,7 @@ public class RGBImage {
 
 	}// setPixel
 
-	/* OKAY */public boolean equals(RGBImage other) {
+	public boolean equals(RGBImage other) {
 
 		if (!(getHeight() == other.getHeight())
 				|| !(getWidth() == other.getWidth())) {
@@ -66,29 +62,27 @@ public class RGBImage {
 		return true;
 	}// equals
 
-	/* OKAY */public void flipHorizontal() {
+	public void flipHorizontal() {
 
 		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
 
 		for (int i = 0; i < flippedImage.length; i++) {
 
-			flippedImage[i] = pixels[getWidth() - 1 - i];
+			flippedImage[i] = pixels[getHeight() - i - 1];
 
 		}// outer loop
 
 		setPixelArray(flippedImage);
 	}// flipHorizontal
 
-	/* OKAY */public void flipVertical() {
+	public void flipVertical() {
 
-		RGBColor[][] flippedImage = new RGBColor[getHeight()][getWidth()];
+		RGBColor[][] flippedImage = copyArray(toRGBColorArray());
 
 		for (int i = 0; i < flippedImage.length; i++) {
 
 			for (int j = 0; j < flippedImage[0].length; j++) {
-
-				flippedImage[i][j] = toRGBColorArray()[i][getWidth() - 1 - j];
-
+				flippedImage[i][j] = new RGBColor(pixels[i][getWidth() - 1 - j]);
 			}// inner loop
 
 		}// outer loop
@@ -96,7 +90,7 @@ public class RGBImage {
 		setPixelArray(flippedImage);
 	}// flipVertical
 
-	/* OKAY */public void invertColors() {
+	public void invertColors() {
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = 0; j < pixels[0].length; j++) {
 				pixels[i][j].invert();
@@ -131,25 +125,32 @@ public class RGBImage {
 	}// rotateCounterClockwise
 
 	public void shiftCol(int offset) {
-		if (offset == getHeight() || offset == -getHeight()) {
+		if (offset == getWidth() || offset == -getWidth()) {
 			setPixelArray(setArrayBlack(pixels));
 		}// if equal to columns
-		else if (offset > getHeight() - 1 || offset < -getHeight() + 1
+
+		else if (offset > getWidth() - 1 || offset < -getWidth() + 1
 				|| offset == 0) {
 			return;
 		}// if out of bounds
+
 		else {
+
 			RGBColor[][] blackSheet = setArrayBlack(pixels);
 			if (offset > 0) {
 				for (int i = 0; i < blackSheet.length; i++) {
 					for (int j = 0; j < blackSheet[0].length; j++) {
 						if (!(j < offset)) {
-							blackSheet[i][j] = toRGBColorArray()[i][j - offset];
+							blackSheet[i][j] = new RGBColor(
+									toRGBColorArray()[i][j - offset]);
 						}// if
+
 					}// inner loop
 				}// outer loop
+
 				setPixelArray(blackSheet);
 			}// if > 0
+
 			else if (offset < 0) {
 				flipVertical();
 				offset = -offset;
@@ -164,6 +165,7 @@ public class RGBImage {
 				flipVertical();
 			}// else if
 		}// else
+
 	}// shiftCol
 
 	public void shiftRow(int offset) {
@@ -172,36 +174,56 @@ public class RGBImage {
 		}// if
 		else {
 			if (offset > 0) {
-				rotateClockwise();
-				shiftCol(offset);
-				rotateCounterClockwise();
+
 			}// if offset positive
 			else if (offset < 0) {
 				rotateClockwise();
-				shiftCol(offset);
-				rotateClockwise();
+				shiftCol(-offset);
+				rotateCounterClockwise();
 			}// of offset negative
 		}// else
 	}// shiftRow
 
 	public double[][] toGrayscaleArray() {
-		return null;
+		double[][] grayScaledArray = new double[getHeight()][getWidth()];
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[0].length; j++) {
 
+				grayScaledArray[i][j] = pixels[i][j].convertToGrayscale();
+			}
+		}
+		return grayScaledArray;
 	}// toGrayscaleArray
+
+	public String toString() {
+		String output = "";
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[0].length; j++) {
+				if (j != pixels[0].length - 1) {
+					output += pixels[i][j].toString() + " ";
+				} else {
+					output += pixels[i][j].toString() + "\n";
+
+				}
+			}// inner loop
+
+		}// outer loop
+		return output;
+	}// toString
 
 	private RGBColor[][] copyArray(RGBColor[][] pixels) {
 		RGBColor[][] copiedArray = new RGBColor[pixels.length][pixels[0].length];
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = 0; j < pixels[0].length; j++) {
 
-				copiedArray[i][j] = pixels[i][j];
+				copiedArray[i][j] = new RGBColor(pixels[i][j]);
 
 			}// inner loop
 		}// outer loop
 		return copiedArray;
 	}// copyArray
 
-	/* OKAY */private void setPixelArray(RGBColor[][] pixelArray) {
+	private void setPixelArray(RGBColor[][] pixelArray) {
 		this.pixels = copyArray(pixelArray);
 	}// getRGBImage
 
