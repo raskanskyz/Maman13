@@ -111,7 +111,7 @@ public class RGBImage {
 
 			for (int j = 0; j < getWidth(); j++) {
 
-				if (!pixels[i][j].equals(other.toRGBColorArray())) {
+				if (!pixels[i][j].equals(other.getPixel(i, j))) {
 					return false;
 				}// inner if
 
