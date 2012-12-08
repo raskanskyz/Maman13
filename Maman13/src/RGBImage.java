@@ -159,8 +159,8 @@ public class RGBImage {
 	 * Inverts each pixel in the Array.
 	 */
 	public void invertColors() {
-		for (int i = 0; i < pixels.length; i++) {
-			for (int j = 0; j < pixels[0].length; j++) {
+		for (int i = 0; i < getHeight(); i++) {
+			for (int j = 0; j < getWidth(); j++) {
 				pixels[i][j].invert();
 			}// inner loop
 		}// outer loop
@@ -319,6 +319,7 @@ public class RGBImage {
 	 * @return A copy of 'pixels'.
 	 */
 	private RGBColor[][] copyArray(RGBColor[][] pixels) {
+
 		RGBColor[][] copiedArray = new RGBColor[pixels.length][pixels[0].length];
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = 0; j < pixels[0].length; j++) {
